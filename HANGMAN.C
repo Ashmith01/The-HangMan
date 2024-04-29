@@ -6,13 +6,13 @@
 #include<graphics.h>
 #include<conio.h>
 
-   int i = 0, j, fail = 0, l = 0;
+   int i = 0, fail = 0, l = 0;
    int f1 = 0, cat, len;
    char ch = 'Y', guess;
    char word[20];
    char game[10]={"-------"};
    char guessed[20];
-   char fstr[1];
+
 
 // Function to select a random word from the given category
 void selectWord(char *word, char category[][20], int num_words)
@@ -26,11 +26,6 @@ void title()
    outtextxy(190,0,"HANGMAN");
    settextstyle(DEFAULT_FONT,HORIZ_DIR,1);
 
-  }
-// Function to display the current state of the game
-void displayGame(char *game, int x, int y)
- {
-    outtextxy(x, y, game);
   }
 
 //function to display guesses
@@ -82,7 +77,7 @@ void clrin()
   {
 	int c;
 	while((c=getchar())!='\n'&&c!=EOF);
-   }
+  }
 
 void guessedw()
   {
@@ -107,6 +102,7 @@ int main()
 	fail = 0;
 	printf("\n\n\n\nEnter the corresponding numbers for required categories\n1: Countries\n2: Sports\n3: Cars\n");
 	scanf("%d", &cat);
+	clrin();
 
 	switch (cat)
 	{
@@ -128,22 +124,22 @@ int main()
 
 	letters();
 	while (1)
-	 {
-		delay(0000);
+	{
 		cleardevice();
 		letters();
 		title();
 		drawHangman(fail);
 		guessc();
 		guessedw();
-	    clrin();
+
 	    outtextxy(0,100,"Enter Your Guess:");
 	    scanf("%c", &guess);
+	    //guess=getchar();
 	    clrin();
 	    f1 = 0;
 	    for (i = 0; i < len; i++)
 	     {
-		if (tolower(guess) == word[i] && guess != game[i])
+		if (tolower(guess) == word[i] && guess != guessed[i])
 		 {
 		    game[i] = word[i];
 		    guessed[i]=word[i];
@@ -168,6 +164,7 @@ int main()
 
 		outtextxy(0,300,"press ENTER key to continue");
 		getch();
+
 	    guessedw();
 	    cleardevice();
 	    letters();
@@ -175,6 +172,8 @@ int main()
 	    title();
 	    drawHangman(fail);
 	    guessedw();
+
+	    fflush(stdin);
 
 	    if (fail >= 7) {
 
